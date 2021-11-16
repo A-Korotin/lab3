@@ -2,35 +2,37 @@ import java.util.ArrayList;
 
 public class Story {
     public static void main(String[] args) {
-        Tonnel tonnel = new Tonnel();
         Znayka znayka = new Znayka();
         Steklyashkin steklyashkin = new Steklyashkin();
-        ArrayList<Astronaut> companions = new ArrayList<>();
+        ArrayList<Companion> companions = new ArrayList<>();
         companions.add(new Companion("Кубик"));
+        companions.add(new Companion("Звёздочкин"));
         companions.add(new Companion("Тюбик"));
-        companions.add(new Companion("Звездочкин"));
-        Ice surface = new Ice();
+        Tonnel tonnel = new Tonnel("тоннель");
+        Ice ice = new Ice("лёд");
+        IceSteps iceSteps = new IceSteps("ледяные ступени");
 
         MessageHandler.logMessage(tonnel.becomeSteep());
-        MessageHandler.logMessage(znayka.descent(tonnel));
-        for(Astronaut companion: companions)
-            MessageHandler.logMessage(znayka.orderToCutTheSteps(companion, surface));
+        MessageHandler.logMessage(znayka.act(new CheckAngle(), tonnel));
+        MessageHandler.logMessage(znayka.act(new OrderToCutStairs(), ice));
 
-        surface = new IceSteps();
+        for(Companion c: companions)
+            MessageHandler.logMessage(c.act(new CutStairs(), ice));
 
-        MessageHandler.logMessage(znayka.bondSkeins());
-        MessageHandler.logMessage(znayka.getEquipment(0).attachTo(steklyashkin.getEquipment(0)));
-        MessageHandler.logMessage(znayka.orderToDescent(steklyashkin));
-        for(Astronaut companion: companions)
-            MessageHandler.logMessage(surface.stand(companion));
+        MessageHandler.logMessage(znayka.tieSkeins());
+        MessageHandler.logMessage(znayka.attachRope(steklyashkin));
 
-        Equipment rope = znayka.getEquipment(0);
-        for(Astronaut companion: companions)
-            MessageHandler.logMessage(companion.equip(rope));
+        MessageHandler.logMessage(znayka.act(new OrderToDescend(), null));
+        MessageHandler.logMessage(steklyashkin.act(new ExecuteOrderToDescent(), null));
 
-        for (Astronaut companion: companions) {
-            MessageHandler.logMessage(companion.lowerRope());
-            MessageHandler.logMessage(companion.checkEquipment(rope));
+        for(Companion c: companions)
+            MessageHandler.logMessage(c.act(new Stand(), iceSteps));
+
+        Interactive rope = znayka.getEquipment(0);
+
+        for(Companion c: companions) {
+            MessageHandler.logMessage(c.act(new LowerRope(), rope));
+            MessageHandler.logMessage(c.act(new SuperviseRope(), rope));
         }
 
         MessageHandler.getAllMessages();
