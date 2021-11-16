@@ -36,7 +36,7 @@ class Tonnel implements Interactive {
     public int hashCode() {
         if (name == null)
             return 0;
-        return name.hashCode() * 127 * angle.code;
+        return name.hashCode() * 127 * angle.getCode();
     }
 
 }
