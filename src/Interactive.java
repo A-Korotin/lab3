@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-// Интерфейс для предмета, субъекта взаимодействия
+// Интерфейс для предмета, объекта взаимодействия
 
 public interface Interactive {
     String getName();
