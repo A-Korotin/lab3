@@ -1,3 +1,5 @@
+// Интерфейс для субъекта взаимодействия
+
 public interface Interactive {
     String getName();
 }

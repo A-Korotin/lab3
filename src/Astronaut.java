@@ -4,12 +4,16 @@ public abstract class Astronaut {
     protected String name;
     protected ArrayList<Interactive> equipment = new ArrayList<>();
 
-    protected String act(Action action, Interactive interactive) {
+    public String act(Action action, Interactive interactive) {
         return action.preform(this, interactive);
     }
 
-    public Interactive getEquipment(int index) {
-        return equipment.get(index);
+    public String act(SpecialAction action, Astronaut subject) {
+        return action.preform(this, subject);
+    }
+
+    public String act(SelfAction action) {
+        return action.preform(this);
     }
 
     @Override
@@ -36,10 +40,10 @@ public abstract class Astronaut {
 
     @Override
     public int hashCode() {
-        int result = name == null ? 0 : name.hashCode();
+        int result = name.hashCode();
 
         for(Interactive i: equipment)
-            result *= i.hashCode() * 53;
+            result *= i.hashCode() * 127;
 
         return result;
     }
@@ -56,22 +60,6 @@ class Znayka extends Astronaut {
         equipment.add(new NylonCordSkein("самый маленький моток"));
     }
 
-
-    public String tieSkeins() {
-        StringBuilder msg = new StringBuilder();
-        for(Interactive skein: equipment) {
-            msg.append(act(new TieSkein(), skein)).append(". ");
-        }
-        equipment.clear();
-        Rope rope = new Rope("длинная веревка");
-        equipment.add(rope);
-        return (msg.append("Получилась ").append(rope.getName())).toString();
-    }
-
-    public String attachRope(Steklyashkin steklyashkin) {
-        return act(new AttachRope(), equipment.get(0)) + " к " + steklyashkin.equipment.get(0).getName();
-    }
-
 }
 
 class Steklyashkin extends Astronaut {
@@ -80,15 +68,20 @@ class Steklyashkin extends Astronaut {
     }
 
     public Steklyashkin() {
-        equipment.add(new Belt("пояс " + name));
+        equipment.add(new Belt("пояс"));
     }
 
 }
 
 class Companion extends Astronaut {
 
-    public Companion(String name) {
-        this.name = name;
+    public Companion(String name){
+        // this.name = Objects.requireNotNullElse(name, "NoName");
+
+        if (name == null)
+            this.name = "NoName";
+        else
+            this.name = name;
     }
 
 }
