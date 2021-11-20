@@ -34,10 +34,12 @@ public class Story {
         Interactive rope = znayka.equipment.get(0);
 
         for(Companion c: companions) {
+            c.equipment.add(rope);
             MessageHandler.logMessage(c.act(new LowerRope(), rope));
             MessageHandler.logMessage(c.act(new SuperviseRope(), rope));
         }
 
         MessageHandler.getAllMessages();
+
     }
 }

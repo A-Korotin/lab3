@@ -121,7 +121,9 @@ class LowerRope implements Action {
 
 class SuperviseRope implements Action {
     public String preform(Astronaut astronaut, Interactive interactive) {
-        return astronaut.name + " внимательно следит, чтобы " + interactive.getName() + " не выскользнула из ручонок";
+        String msg = astronaut.name + " внимательно следит, чтобы " + interactive.getName() + " не выскользнула из ручонок. ";
+        return astronaut.equipment.contains(interactive) ? msg + interactive.getName() + " все еще в руках " + astronaut.name :
+                msg + astronaut.name + " потерял " + interactive.getName() + "... Болван";
     }
 
     @Override

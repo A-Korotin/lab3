@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MessageHandler {
     public static ArrayList<String> messages = new ArrayList<>();
 
     public static void logMessage(String msg){
-        messages.add(msg);
+        messages.add(Objects.requireNonNullElse(msg, ""));
     }
 
     public static void getAllMessages() {
@@ -13,7 +14,7 @@ public class MessageHandler {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
         if (this == other) return true;
         return !(other == null || getClass() != other.getClass());
     }

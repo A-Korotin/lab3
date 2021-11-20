@@ -1,4 +1,6 @@
-// Интерфейс для субъекта взаимодействия
+import java.util.Objects;
+
+// Интерфейс для предмета, субъекта взаимодействия
 
 public interface Interactive {
     String getName();
@@ -10,7 +12,7 @@ class Tonnel implements Interactive {
     TonnelAngle angle = TonnelAngle.flat;
 
     public Tonnel(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNullElse(name, "NoName");
     }
 
     public String getName() {
@@ -19,7 +21,7 @@ class Tonnel implements Interactive {
 
     public String becomeSteep() {
         angle = TonnelAngle.steep;
-        return "Наклон " + name + " стал силшком крутым";
+        return "Наклон " + name + " стал слишком крутым";
     }
 
     @Override
@@ -36,8 +38,6 @@ class Tonnel implements Interactive {
 
     @Override
     public int hashCode() {
-        if (name == null)
-            return 0;
         return name.hashCode() * 127 * angle.getCode();
     }
 
@@ -47,7 +47,7 @@ class Ice implements Interactive {
     private final String name;
 
     public Ice(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNullElse(name, "NoName");
     }
 
     public String getName() {
@@ -68,8 +68,6 @@ class Ice implements Interactive {
 
     @Override
     public int hashCode() {
-        if (name == null)
-            return 0;
         return name.hashCode() * 127;
     }
 }
@@ -78,7 +76,7 @@ class Rope implements Interactive {
     private final String name;
 
     public Rope(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNullElse(name, "NoName");
     }
 
     public String getName() {
@@ -100,8 +98,6 @@ class Rope implements Interactive {
 
     @Override
     public int hashCode() {
-        if (name == null)
-            return 0;
         return name.hashCode() * 127;
     }
 
@@ -111,7 +107,7 @@ class Belt implements Interactive {
     private final String name;
 
     public Belt(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNullElse(name, "NoName");
     }
 
     public String getName() {
@@ -132,8 +128,6 @@ class Belt implements Interactive {
 
     @Override
     public int hashCode() {
-        if (name == null)
-            return 0;
         return name.hashCode() * 127;
     }
 }
@@ -142,7 +136,7 @@ class NylonCordSkein implements Interactive {
     private final String name;
 
     public NylonCordSkein(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNullElse(name, "NoName");
     }
 
     public String getName() {
@@ -164,8 +158,6 @@ class NylonCordSkein implements Interactive {
 
     @Override
     public int hashCode() {
-        if (name == null)
-            return 0;
         return name.hashCode() * 127;
     }
 
@@ -175,7 +167,7 @@ class IceSteps implements Interactive {
     private final String name;
 
     public IceSteps(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNullElse(name, "NoName");
     }
 
     public String getName() {
@@ -197,9 +189,6 @@ class IceSteps implements Interactive {
 
     @Override
     public int hashCode() {
-        if (name == null)
-            return 0;
         return name.hashCode() * 127;
     }
-
 }

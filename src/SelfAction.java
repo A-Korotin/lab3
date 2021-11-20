@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // Интерфейс для действий, совершаемых астроновтом самим над собой
 public interface SelfAction {
     String preform(Astronaut astronaut);
@@ -6,13 +8,22 @@ public interface SelfAction {
 class TieSkeins implements SelfAction {
     public String preform(Astronaut astronaut) {
         StringBuilder msg = new StringBuilder();
+        ArrayList<Interactive> skeins = new ArrayList<>();
         for(Interactive skein: astronaut.equipment) {
-            msg.append(astronaut.act(new TieSkein(), skein)).append(". ");
+            if (skein instanceof NylonCordSkein) {
+                msg.append(astronaut.act(new TieSkein(), skein)).append(". ");
+                skeins.add(skein);
+            }
+
         }
-        astronaut.equipment.clear();
         Rope rope = new Rope("длинная веревка");
-        astronaut.equipment.add(rope);
-        return (msg.append("Получилась ").append(rope.getName())).toString();
+        if (skeins.size() != 0)
+            astronaut.equipment.add(rope);
+
+        astronaut.equipment.removeAll(skeins);
+
+        return skeins.size() != 0 ? (msg.append("Получилась ").append(rope.getName())).toString() :
+                "У " + astronaut.name + " мотков не оказалось, веревки не будет...";
     }
     @Override
     public boolean equals(Object other) {

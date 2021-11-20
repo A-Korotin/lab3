@@ -82,6 +82,8 @@ class Companion extends Astronaut {
             this.name = "NoName";
         else
             this.name = name;
+
+        equipment.add(new Rope("веревка " + name));
     }
 
 }
