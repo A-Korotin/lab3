@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Story {
     public static void main(String[] args) {
+
         Znayka znayka = new Znayka();
         Steklyashkin steklyashkin = new Steklyashkin();
 

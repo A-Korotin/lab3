@@ -7,6 +7,9 @@ public interface Action {
 class CheckAngle implements Action {
 
     public String preform(Astronaut astronaut, Interactive interactive) {
+        if (!(interactive instanceof Tonnel))
+            return "Невозможно проверить наклон у " + interactive.getName();
+
         Tonnel tonnel = (Tonnel) interactive;
         return tonnel.angle == TonnelAngle.steep ? astronaut.name + " побоялся продолжить спуск" :
                                                    astronaut.name + " продолжил спуск";
