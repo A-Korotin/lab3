@@ -50,25 +50,17 @@ public abstract class Astronaut {
 class Znayka extends Astronaut {
     {
         name = "Знайка";
-    }
-
-    public Znayka() {
         equipment.add(new NylonCordSkein("моток"));
         equipment.add(new NylonCordSkein("моточек поменьше"));
         equipment.add(new NylonCordSkein("самый маленький моток"));
     }
-
 }
 
 class Steklyashkin extends Astronaut {
     {
         name = "Стекляшкин";
-    }
-
-    public Steklyashkin() {
         equipment.add(new Belt("пояс"));
     }
-
 }
 
 class Companion extends Astronaut {
