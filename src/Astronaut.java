@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Astronaut {
     protected String name;
@@ -18,19 +19,16 @@ public abstract class Astronaut {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (this == other)
+            return true;
+        if (other == null || getClass() != other.getClass())
+            return false;
         Astronaut astronaut = (Astronaut) other;
 
         if (equipment.size() != astronaut.equipment.size())
             return false;
 
-        int counter = 0;
-        for(Interactive i: equipment) {
-            if(astronaut.equipment.contains(i))
-                ++counter;
-        }
-        return name.equals(astronaut.name) && counter == equipment.size();
+        return name.equals(astronaut.name) && equipment.containsAll(astronaut.equipment);
     }
 
     @Override
@@ -40,7 +38,7 @@ public abstract class Astronaut {
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
+        int result = name.hashCode() * 127;
 
         for(Interactive i: equipment)
             result *= i.hashCode() * 127;
@@ -76,14 +74,7 @@ class Steklyashkin extends Astronaut {
 class Companion extends Astronaut {
 
     public Companion(String name){
-        // this.name = Objects.requireNotNullElse(name, "NoName");
-
-        if (name == null)
-            this.name = "NoName";
-        else
-            this.name = name;
-
-        equipment.add(new Rope("веревка " + name));
+        this.name = Objects.requireNonNullElse(name, "NoName");
     }
 
 }

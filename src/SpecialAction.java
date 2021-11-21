@@ -28,8 +28,19 @@ class OrderToCutStairs implements SpecialAction {
 
 class AttachEquipment implements SpecialAction {
     public String preform(Astronaut object, Astronaut subject) {
-        return object.name + " прикрепил " + object.equipment.get(0).getName() + " к " +
-                subject.equipment.get(0).getName() + " " + subject.name;
+        Interactive objectI;
+        Interactive subjectI;
+        try {
+            objectI = object.equipment.get(0);
+            subjectI = subject.equipment.get(0);
+        }
+        catch (IndexOutOfBoundsException e) {
+            return "Упс... Прикрепить не получится (" + e.getMessage() + ")";
+        }
+
+
+        return object.name + " прикрепил " + objectI.getName() + " к " +
+                subjectI.getName() + " " + subject.name;
     }
 
     @Override

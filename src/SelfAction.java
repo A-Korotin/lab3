@@ -9,10 +9,11 @@ class TieSkeins implements SelfAction {
     public String preform(Astronaut astronaut) {
         StringBuilder msg = new StringBuilder();
         ArrayList<Interactive> skeins = new ArrayList<>();
-        for(Interactive skein: astronaut.equipment) {
-            if (skein instanceof NylonCordSkein) {
-                msg.append(astronaut.act(new TieSkein(), skein)).append(". ");
-                skeins.add(skein);
+
+        for(Interactive skeinSuspect: astronaut.equipment) {
+            if (skeinSuspect instanceof NylonCordSkein) {
+                msg.append(astronaut.act(new TieSkein(), skeinSuspect)).append(". ");
+                skeins.add(skeinSuspect);
             }
 
         }
